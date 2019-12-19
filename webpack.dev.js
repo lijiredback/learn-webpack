@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
     entry: './src/index.js',
@@ -6,7 +8,7 @@ module.exports = {
         path: path.join(__dirname, 'dist'),
         filename: 'bundle.js'
     },
-    mode: 'production',
+    mode: 'development',
     module: {
         rules: [
             {
@@ -25,5 +27,13 @@ module.exports = {
                 use: ['file-loader']
             }            
         ]
+    },
+    plugins: [
+        new webpack.HotModuleReplacementPlugin(),
+        new CleanWebpackPlugin()
+    ],
+    devServer: {
+        contentBase: './dist',
+        hot: true
     }
 };
